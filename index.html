@@ -1,17 +1,31 @@
 <!doctype html>
-<html>
+<html ng-app="notes">
     <head>
         <meta charset="utf-8">
         <meta name="description" content="A simple notes app written with AngularJS">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Angular Notes</title>
-        <link rel="stylesheet" href="css/foundation.min.css">
+        <title>Angular Notes</title> 
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/store.min.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/app.js"></script>
     </head>
-    <body>
-        
-        
-        
+    <body> 
+        <div ng-controller="NotesController as nc">
+          <h2>Create Note:</h2>
+           <textarea id="note_box" type="text" ng-model="new_note"></textarea>
+           <br>
+           <button ng-hide="nc.editMode" class="btn btn-primary" ng-click="nc.createNote(new_note)">Create</button>
+           <button ng-show="nc.editMode" class="btn btn-success" ng-click="nc.updateNote(new_note)">Update</button> 
+            
+          <h2>Notes:</h2>
+            <ul ng-repeat="(key,value) in nc.allNotes track by $index">
+              <li>{{ value }}  
+                <br>
+                  <button class="btn btn-success btn-xs" ng-click="nc.editNote(key)"><span class="glyphicon glyphicon-edit"></span></button>
+                  <button class="btn btn-danger btn-xs" ng-click="nc.deleteNote(key)"><span class="glyphicon glyphicon-remove"></span></button>
+              </li>
+            </ul>              
+        </div>
     </body>
 </html>
